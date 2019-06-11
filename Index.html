@@ -17,11 +17,9 @@
         </div>
         <div class="row">
             <div id="gifBox" class="col-lg-8 m-2">Image Holder</div>
-            <div class="col-lg-3 m-2">
+            <div class="col-med-3 m-2">
                 <label for="Search">Search Term:</label>
-                <br>
                 <input type="text" id="searchTerm">
-                <br>
                 <button type="button" id="searchButton" class="btn btn-info btn-sm">Search</button>
             </div>
         </div>
@@ -32,28 +30,39 @@
 
         // separated function to append buttons to saved terms
         function addButtons(){
-            $("#savedTerms").empty();
             for (var i = 0; i < topics.length; i++){
-                $("#savedTerms").append("<button type='button' class='btn btn-info btn-sm termSearch' data-name='" + topics[i] + "'>" + topics[i] + "</button>")
+                $("#savedTerm").append("<button type='button' class='btn btn-info btn-sm termSearch' data-name='" + topics[i] + "'>" + topics[i] + "</button>")
             }
         }
         $("#searchButton").on("click", function (event) {
             event.preventDefault();
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + term + "&api_key=WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm&limit=10";
+
+            //Test if on click listener was causing issues
+            console.log("Test");
+            
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm&limit=10";
+
+            //To get information from search bar
+            var topic = $("#searchTerm").val().trim();
+            topics.push(topic);
+            addButtons();
 
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
                 var result = response.data;
+
+                //currently pulling results
+                console.log(result);
                 for (var i = 0; i < topics.length; i++) {
                     if (event){
 
                     }
-                };
-                $("#searchTerm").empty();
+                }
             });
-        })
+            $("#searchTerm").empty();
+        });
 
         //Used to pull property listed under 'data-name'
         $(".termSearch").on("click", function(event){
