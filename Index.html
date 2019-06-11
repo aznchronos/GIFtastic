@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GIFtastic</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="Search">Search Term:</label>
+                <input type="text" id="searchTerm">
+                <button id="searchButton"></button>
+            </div>
+        </div>
+        <div id="imgBox"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var topics = [];
+
+        function clear() {
+            $("#searchTerm").empty();
+        };
+
+        function buildQueryURL(){
+            var queryURL = "https://api.giphy.com/v1/gifs/search";
+
+            var queryParams = { "api-key": "WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm" };
+
+            queryParams.q = $("#searchTerm").val().trim();
+        }
+        
+        $("#searchButton").on("click", function(event){
+            event.preventDefault();
+            clear();
+            var queryURL = buildQueryURL();
+
+            $.ajax({
+                url:queryURL,
+                method: "GET"
+            }).then(updatePage);
+        })
+        for (var i = 0; i < topics.length; i++){
+
+        }
+    </script>
+</body>
+</html>
