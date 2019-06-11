@@ -1,51 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
     <title>GIFtastic</title>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-10 m-3" id="savedTerms">Column for search ids</div>
+        </div>
+        <div class="row">
+            <div id="gifBox" class="col-lg-8 m-2">Image Holder</div>
+            <div class="col-lg-3 m-2">
                 <label for="Search">Search Term:</label>
+                <br>
                 <input type="text" id="searchTerm">
-                <button id="searchButton"></button>
+                <br>
+                <button type="button" id="searchButton" class="btn btn-info btn-sm">Search</button>
             </div>
         </div>
-        <div id="imgBox"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var topics = [];
 
-        function clear() {
-            $("#searchTerm").empty();
-        };
-
-        function buildQueryURL(){
-            var queryURL = "https://api.giphy.com/v1/gifs/search";
-
-            var queryParams = { "api-key": "WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm" };
-
-            queryParams.q = $("#searchTerm").val().trim();
+        // separated function to append buttons to saved terms
+        function addButtons(){
+            $("#savedTerms").empty();
+            for (var i = 0; i < topics.length; i++){
+                $("#savedTerms").append("<button type='button' class='btn btn-info btn-sm termSearch' data-name='" + topics[i] + "'>" + topics[i] + "</button>")
+            }
         }
-        
-        $("#searchButton").on("click", function(event){
+        $("#searchButton").on("click", function (event) {
             event.preventDefault();
-            clear();
-            var queryURL = buildQueryURL();
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + term + "&api_key=WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm&limit=10";
 
             $.ajax({
-                url:queryURL,
+                url: queryURL,
                 method: "GET"
-            }).then(updatePage);
-        })
-        for (var i = 0; i < topics.length; i++){
+            }).then(function (response) {
+                var result = response.data;
+                for (var i = 0; i < topics.length; i++) {
+                    if (event){
 
-        }
+                    }
+                };
+                $("#searchTerm").empty();
+            });
+        })
+
+        //Used to pull property listed under 'data-name'
+        $(".termSearch").on("click", function(event){
+            alert(this.getAttribute("data-name"));
+        })
+        
     </script>
 </body>
+
 </html>
