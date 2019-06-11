@@ -55,13 +55,20 @@
 
                 //currently pulling results
                 console.log(result);
-                for (var i = 0; i < topics.length; i++) {
-                    if (event){
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].rating !== "r" && result[i].rating !== "pg-13"){
+                        var gifDiv = $("<div>");
+                        var rating = result[i].rating;
+                        var p = $("<p>").text("Rating: " + rating);
+                        var topicImage = $("<img>");
+                        topicImage.attr("src", result[i].images.fixed_height.url);
+                        gifDiv.append(p);
+                        gifDiv.append(topicImage);
 
+                        $("#gifBox").prepend(gifDiv);
                     }
                 }
             });
-            $("#searchTerm").empty();
         });
 
         //Used to pull property listed under 'data-name'
