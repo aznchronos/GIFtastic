@@ -31,6 +31,7 @@
 
             // separated function to append buttons to saved terms
             function addButtons() {
+                $("#savedTerm").empty();
                 for (var i = 0; i < topics.length; i++) {
                     var newButton = $("<button>");
                     newButton.addClass('btn btn-info btn-sm m-1 termSearch');
@@ -41,7 +42,7 @@
             }
 
             $("#searchButton").on("click", function (event) {
-                // event.preventDefault();
+                event.preventDefault();
 
                 //Test if on click listener was causing issues
                 // console.log("Test");
@@ -55,7 +56,7 @@
             });
 
             function displayGifs() {
-                var topic = $("#searchTerm").val().trim();
+                var topic = $(this).attr("data-name");
                 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm&limit=10";
                 $.ajax({
                     url: queryURL,
@@ -85,12 +86,12 @@
             //Used to pull property listed under 'data-name'
             $("body").on("click", ".termSearch", function (event) {
                 var topic = $(this).attr("data-name");
-                displayGifs();
+                displayGifs(topic);
                 console.log("test");
             });
 
             //Display pictures
-            // $(document).on("click", ".termSearch", displayGifs);
+            $(document).on("click", ".termSearch", displayGifs);
 
             // So that the page loads with buttons loaded in
             addButtons();
