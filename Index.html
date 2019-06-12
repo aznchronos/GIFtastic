@@ -15,14 +15,14 @@
         <div class="col-lg-12 m-3" id="savedTerm">Column for search ids</div>
     </div>
     <div class="row">
-        <div class="col-lg-9 m-2">
+        <div class="col-med-9 m-2">
+            <div id="gifBox"></div>
         </div>
-        <div class="col-sm-3 m-2">
+        <div class="col-med-3 m-2">
             <label for="Search" class="font-weight-bold">Add Term:</label>
             <input type="text" id="searchTerm" class="w-100">
             <button type="button" id="addButton" class="btn btn-info btn-sm mt-3">Submit</button>
         </div>
-        <div id="gifBox" class="float-left mt-3"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
@@ -75,6 +75,7 @@
                             var p = $("<p>").text("Rating: " + rating);
                             var topicImage = $("<img>");
                             topicImage.attr("src", result[i].images.fixed_height.url);
+                            gifDiv.addClass('card float-left m-2')
                             gifDiv.append(p);
                             gifDiv.append(topicImage);
                             $("#gifBox").prepend(gifDiv);
