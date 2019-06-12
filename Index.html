@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>GIFtastic</title>
 </head>
 
@@ -19,82 +20,12 @@
         <!-- align-self start/end -->
         <!-- col-md-push/pull -->
         <div class="col-lg-3 col-lg-push-6 m-2">
-            <label for="Search" class="font-weight-bold">Add Term:</label>
+            <label for="Search" class="font-weight-bold text-light">Add Term:</label>
             <input type="text" id="searchTerm" class="w-100">
             <button type="button" id="addButton" class="btn btn-info btn-sm mt-3">Submit</button>
         </div>
         <div class="col-lg-8 col-lg-pull-6 m-2" id="gifBox"></div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var topics = ["Cats", "Dogs", "LOL", "Bootcamp", "Majestic", "Meme", "Party", "Random", "Banana", "Pineapple", "Tango", "Flip Flip", "Potato", "Super Mario Maker", "Devil May Cry", "Dark Souls", "Portal", "Star Wars", "Alien vs Predator", "Super Smash Bros", "Fire Emblem", "Bravely Default", "Street Fighter"];
-
-            // separated function to append buttons to saved terms
-            
-            $("#addButton").on("click", function (event) {
-                event.preventDefault();
-                
-                //To get information from search bar
-                var topic = $("#searchTerm").val().trim();
-                if($("#searchTerm").val().trim() !== "" && $("#searchTerm").val().trim() !== " "){
-                    topics.push(topic);
-                    addButtons(topic);
-                    $("#searchTerm").val("");
-                    // displayGifs(topic);
-                };
-            });
-
-
-        // List of Functions
-        // ==========================================================
-            function addButtons() {
-                $("#savedTerm").empty();
-                for (var i = 0; i < topics.length; i++) {
-                    var newButton = $("<button>");
-                    newButton.addClass('btn btn-info btn-sm m-1 termSearch');
-                    newButton.attr("data-name", topics[i]);
-                    newButton.text(topics[i]);
-                    $("#savedTerm").append(newButton);
-                }
-            }
-
-            function displayGifs() {
-                var topic = $(this).attr("data-name");
-                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm&limit=10";
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                }).then(function (response) {
-                    var result = response.data;
-                    $("#gifBox").empty();
-                    //currently pulling results
-                    // console.log(result);
-
-                    //Sets condition of only r and pg-13 pictures to load up
-                    for (var i = 0; i < result.length; i++) {
-                        if (result[i].rating !== "r" && result[i].rating !== "pg-13") {
-                            var gifDiv = $("<div>");
-                            var rating = result[i].rating;
-                            var p = $("<p>").text("Rating: " + rating);
-                            var topicImage = $("<img>");
-                            topicImage.attr("src", result[i].images.fixed_height.url);
-                            gifDiv.addClass('card float-left m-2')
-                            gifDiv.append(p);
-                            gifDiv.append(topicImage);
-                            $("#gifBox").prepend(gifDiv);
-                        }
-                    }
-                });
-            };
-
-            //Used to pull property listed under 'data-name'
-            $(document).on("click", ".termSearch", displayGifs);
-
-            // So that the page loads with buttons loaded in
-            addButtons();
-        });
-    </script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
-
 </html>
