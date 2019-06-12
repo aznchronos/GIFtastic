@@ -15,21 +15,37 @@
         <div class="col-lg-12 m-3" id="savedTerm">Column for search ids</div>
     </div>
     <div class="row">
-        <div class="col-med-9 m-2">
-            <div id="gifBox"></div>
-        </div>
-        <div class="col-med-3 m-2">
+        <!-- List of things attempted: -->
+        <!-- align-self start/end -->
+        <!-- col-md-push/pull -->
+        <div class="col-lg-3 col-lg-push-6 m-2">
             <label for="Search" class="font-weight-bold">Add Term:</label>
             <input type="text" id="searchTerm" class="w-100">
             <button type="button" id="addButton" class="btn btn-info btn-sm mt-3">Submit</button>
         </div>
+        <div class="col-lg-8 col-lg-pull-6 m-2" id="gifBox"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            var topics = ["Cats", "Dogs", "LOL"];
+            var topics = ["Cats", "Dogs", "LOL", "Bootcamp", "Majestic", "Meme", "Party", "Random", "Banana", "Pineapple", "Tango", "Flip Flip", "Potato", "Super Mario Maker", "Devil May Cry", "Dark Souls", "Portal", "Star Wars", "Alien vs Predator", "Super Smash Bros", "Fire Emblem", "Bravely Default", "Street Fighter"];
 
             // separated function to append buttons to saved terms
+            
+            $("#addButton").on("click", function (event) {
+                event.preventDefault();
+                
+                //To get information from search bar
+                var topic = $("#searchTerm").val().trim();
+                topics.push(topic);
+                addButtons(topic);
+                // displayGifs(topic)
+                // return false;
+            });
+
+
+        // List of Functions
+        // ==========================================================
             function addButtons() {
                 $("#savedTerm").empty();
                 for (var i = 0; i < topics.length; i++) {
@@ -38,22 +54,9 @@
                     newButton.attr("data-name", topics[i]);
                     newButton.text(topics[i]);
                     $("#savedTerm").append(newButton);
+                    $("#searchTerm").val("");
                 }
             }
-
-            $("#addButton").on("click", function (event) {
-                event.preventDefault();
-
-                //Test if on click listener was causing issues
-                // console.log("Test");
-
-                //To get information from search bar
-                var topic = $("#searchTerm").val().trim();
-                topics.push(topic);
-                addButtons(topic);
-                // displayGifs();
-                // return false;
-            });
 
             function displayGifs() {
                 var topic = $(this).attr("data-name");
@@ -65,7 +68,7 @@
                     var result = response.data;
                     $("#gifBox").empty();
                     //currently pulling results
-                    console.log(result);
+                    // console.log(result);
 
                     //Sets condition of only r and pg-13 pictures to load up
                     for (var i = 0; i < result.length; i++) {
@@ -85,13 +88,6 @@
             };
 
             //Used to pull property listed under 'data-name'
-            $("body").on("click", ".termSearch", function (event) {
-                var topic = $(this).attr("data-name");
-                displayGifs(topic);
-                console.log("test");
-            });
-
-            //Display pictures
             $(document).on("click", ".termSearch", displayGifs);
 
             // So that the page loads with buttons loaded in
