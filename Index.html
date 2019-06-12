@@ -37,10 +37,12 @@
                 
                 //To get information from search bar
                 var topic = $("#searchTerm").val().trim();
-                topics.push(topic);
-                addButtons(topic);
-                // displayGifs(topic)
-                // return false;
+                if($("#searchTerm").val().trim() !== "" && $("#searchTerm").val().trim() !== " "){
+                    topics.push(topic);
+                    addButtons(topic);
+                    $("#searchTerm").val("");
+                    // displayGifs(topic);
+                };
             });
 
 
@@ -54,7 +56,6 @@
                     newButton.attr("data-name", topics[i]);
                     newButton.text(topics[i]);
                     $("#savedTerm").append(newButton);
-                    $("#searchTerm").val("");
                 }
             }
 
