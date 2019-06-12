@@ -16,13 +16,13 @@
     </div>
     <div class="row">
         <div class="col-lg-9 m-2">
-            <div id="gifBox" class="float-left mt-3"></div>
         </div>
         <div class="col-sm-3 m-2">
-            <label for="Search" class="font-weight-bold">Search Term:</label>
+            <label for="Search" class="font-weight-bold">Add Term:</label>
             <input type="text" id="searchTerm" class="w-100">
-            <button type="button" id="searchButton" class="btn btn-info btn-sm mt-3">Search</button>
+            <button type="button" id="addButton" class="btn btn-info btn-sm mt-3">Submit</button>
         </div>
+        <div id="gifBox" class="float-left mt-3"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
@@ -41,7 +41,7 @@
                 }
             }
 
-            $("#searchButton").on("click", function (event) {
+            $("#addButton").on("click", function (event) {
                 event.preventDefault();
 
                 //Test if on click listener was causing issues
@@ -50,8 +50,8 @@
                 //To get information from search bar
                 var topic = $("#searchTerm").val().trim();
                 topics.push(topic);
-                addButtons();
-                displayGifs();
+                addButtons(topic);
+                // displayGifs();
                 // return false;
             });
 
