@@ -82,7 +82,7 @@ $(document).ready(function () {
         }
     }
 
-    function displayGifs(response) {
+    function displayGifs() {
         var topic = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm&limit=10";
         $.ajax({
@@ -118,9 +118,4 @@ $(document).ready(function () {
             }
         });
     };
-
-    function changeState(){
-        var state = $(this).attr("data-state");
-
-    }
 });
