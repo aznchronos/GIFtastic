@@ -34,7 +34,7 @@ $(document).ready(function () {
                     var rating = result[i].rating.toUpperCase();
                     var p = $("<p>").text("Rating: " + rating);
                     var topicImage = $("<img>");
-                    topicImage.attr("src", result[i].images.fixed_height.url);
+                    topicImage.attr("src", result[i].images.fixed_height_still.url);
                     gifDiv.addClass('card float-left m-2')
                     gifDiv.append(topicImage);
                     gifDiv.append(p);
