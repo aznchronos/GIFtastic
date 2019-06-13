@@ -35,7 +35,11 @@ $(document).ready(function () {
                     var p = $("<p>").text("Rating: " + rating);
                     var topicImage = $("<img>");
                     topicImage.attr("src", result[i].images.fixed_height_still.url);
-                    gifDiv.addClass('card float-left m-2')
+                    topicImage.attr("data-still", result[i].images.fixed_height_still.url);
+                    topicImage.attr("data-animate", result[i].images.fixed_height.url);
+                    topicImage.attr("data-state", "still");
+                    topicImage.attr("class", "gif");
+                    gifDiv.addClass('gif card float-left m-2')
                     gifDiv.append(topicImage);
                     gifDiv.append(p);
                     $("#gifBox").prepend(gifDiv);
@@ -47,7 +51,20 @@ $(document).ready(function () {
 
     //Used to pull property listed under 'data-name'
     $(document).on("click", ".termSearch", displayGifs);
-    $(document).on("click", ".termSearch", displayGifs)
+    
+    //Used to change data-state and animate pictures
+    $(document).on("click", ".gif", function() {
+        var state = $(this).attr("data-state");
+        if (state === "still") {
+            console.log("still");
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+        } else {
+            console.log("animate");
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+        }
+    });
 
     // So that the page loads with buttons loaded in
     addButtons();
@@ -65,7 +82,7 @@ $(document).ready(function () {
         }
     }
 
-    function displayGifs() {
+    function displayGifs(response) {
         var topic = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=WjSOaIXp1jZ9NyPTasy7pRqV91MO4snm&limit=10";
         $.ajax({
@@ -87,7 +104,11 @@ $(document).ready(function () {
                     var rating = result[i].rating.toUpperCase();
                     var p = $("<p>").text("Rating: " + rating);
                     var topicImage = $("<img>");
-                    topicImage.attr("src", result[i].images.fixed_height.url);
+                    topicImage.attr("src", result[i].images.fixed_height_still.url);
+                    topicImage.attr("data-still", result[i].images.fixed_height_still.url);
+                    topicImage.attr("data-animate", result[i].images.fixed_height.url);
+                    topicImage.attr("data-state", "still");
+                    topicImage.attr("class", "gif");
                     gifDiv.addClass('card float-left m-2')
                     gifDiv.append(topicImage);
                     gifDiv.append(p);
@@ -97,4 +118,9 @@ $(document).ready(function () {
             }
         });
     };
+
+    function changeState(){
+        var state = $(this).attr("data-state");
+
+    }
 });
