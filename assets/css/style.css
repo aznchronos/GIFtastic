@@ -1,3 +1,15 @@
 body{
     background-image: url(../images/bg-image.jpg);
 }
+
+@media screen and (max-width: 992px){
+    .searchBar{
+        position: absolute;
+        top: 148px !important;
+        margin-top: 300px;
+    }
+
+    #gifBox {
+        padding-top: 150px;
+    }
+}
