@@ -31,7 +31,7 @@ $(document).ready(function () {
                     // We're not kids here
                     // && result[i].rating !== "pg-13"
                     var gifDiv = $("<div>");
-                    var rating = result[i].rating;
+                    var rating = result[i].rating.toUpperCase();
                     var p = $("<p>").text("Rating: " + rating);
                     var topicImage = $("<img>");
                     topicImage.attr("src", result[i].images.fixed_height.url);
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     // We're not kids here
                     // && result[i].rating !== "pg-13"
                     var gifDiv = $("<div>");
-                    var rating = result[i].rating;
+                    var rating = result[i].rating.toUpperCase();
                     var p = $("<p>").text("Rating: " + rating);
                     var topicImage = $("<img>");
                     topicImage.attr("src", result[i].images.fixed_height.url);
